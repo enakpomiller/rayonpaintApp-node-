@@ -36,6 +36,37 @@ app.get('/addproduct',(req,res) =>{
   return res.render("addproduct");
 })
 
+app.get('/viewprod_details',(req,res) =>{
+   return res.render("viewprod_details");
+ })
+
+ app.get('/addstaff',(req,res) => {
+   return res.render('addstaff');
+ })
+
+ app.get('/viewstaff',(req,res) => {
+  return res.render('viewstaff');
+  })
+
+  app.get('/paymentdetails',(req,res) => {
+    return res.render('paymentdetails');
+  })
+  
+  app.get('/addclient',(req,res) => {
+    return res.render('addclient');
+  })
+
+  app.get('/viewclient',(req,res) => {
+    return res.render('viewclient');
+  })
+
+  app.get('/signup',(req,res) => {
+    return res.render('signup');
+  })
+
+  app.get('/forgetpassword',(req,res) => {
+    return res.render('forgetpassword');
+  })
 
 
 

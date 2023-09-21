@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,7 +106,7 @@
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                       </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="/viewprod_details"> View Product Details </a></li>
+                        <li><a href="/addproduct"> Add Products  </a></li>
                          <li><a href="boxed.html">  Product Samples</a></li>
                       </ul>
                     </li>
@@ -201,16 +203,15 @@
                 <div class="panel">
                   <div class="panel-body">
                       <div class="col-md-6 col-sm-12">
-                        <h3 class="animated fadeInLeft"> Add Product Details  </h3>
+                        <h3 class="animated fadeInLeft"> Payment Details    </h3>
                         <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> Batavia,Indonesia</p>
-
-                        <ul class="nav navbar-nav">
-                            <li><a href="" >Impedit</a></li>
-                            <li><a href="" class="active">Virtute</a></li>
-                            <li><a href="">Euismod</a></li>
-                            <li><a href="">Explicar</a></li>
-                            <li><a href="">Rebum</a></li>
-                        </ul>
+                            <ul class="nav navbar-nav">
+                                <li><a href="" >Impedit</a></li>
+                                <li><a href="" class="active">Virtute</a></li>
+                                <li><a href="">Euismod</a></li>
+                                <li><a href="">Explicar</a></li>
+                                <li><a href="">Rebum</a></li>
+                            </ul>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="col-md-6 col-sm-6 text-right" style="padding-left:10px;">
@@ -243,42 +244,39 @@
                   </div>                    
                 </div>
 
-                  <div id="content" class="panel" style="width:95%;margin:auto;">
-
-                  <div class="panel-body">
-                      <div class="col-md-8 col-sm-12 ">
+                <div id="content" class="panel" style="width:95%;margin:auto;">
+                  <div class="panel-body" style="position:relative;right:100px;">
+                      <div class="col-md-12 col-sm-12">
                      <!-- start form -->
-                     <form style="position:relative;top:20px;" class="">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label"> Product Name  </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Product Price</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
-                        </div>
-                           <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Product Quantity</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
-                        </div>
-                              <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Number Of Paint Per Color</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
-                        </div>
-                            <div class="mb-3">
-                              <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn text-white" style="background:#2196f3; width:100%;"> Save Record</button>
-                     </form>
+                            <table class="table table-striped" style="margin-top:50px;">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">S/n</th>
+                                    <th scope="col">Product Nmae</th>
+                                    <th scope="col">Product Price</th>
+                                    <th scope="col"> Product Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                      <p> <br> 
                        <!-- end form -->
-                 </div>     
-                </div>
+                 </div>      
+            </div>
+           
           <!-- end: second  content -->
 
     
@@ -762,13 +760,6 @@
           
       </div>
 
-
-           <div class="panel" style="position:relative;top:85px;">
-                <div class="panel-body">
-                    <p class="text-center"> Allright reserved@rayonpaint </p>
-                </div>
-          </div>
-
       <!-- start: Mobile -->
       <div id="mimin-mobile" class="reverse" style=""background:red;"">
         <div class="mimin-mobile-menu-list">
@@ -904,9 +895,16 @@
             </div>
         </div>       
       </div>
+    
       <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
         <span class="fa fa-bars"></span>
       </button>
+
+        <div class="panel" style="position:relative;top:250px;">
+                <div class="panel-body">
+                    <p class="text-center"> Allright reserved@rayonpaint </p>
+                </div>
+          </div>
        <!-- end: Mobile -->
 
     <!-- start: Javascript -->
