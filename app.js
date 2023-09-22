@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bodyPaser = require('body-parser');
 const bcrypt = require("bcrypt");
@@ -27,18 +26,28 @@ sequelize.authenticate().then(() => {
     console.log(' connection to database is successful');
   }).catch((error) => console.log(error, ' sorry an eror'));
 
+ // setting database tables
+ const tbl_users = sequelize.define('tbl_users',{
+  username:Sequelize.STRING,
+  phone:Sequelize.STRING,
+  password:Sequelize.STRING 
 
+},{tablename:"tbl_users"});
+// close table setting 
+
+
+  //creating and loading forms
  app.get('/dashboard',(req,res) =>{
    res.render("dashboard");
-})
-
-app.get('/addproduct',(req,res) =>{
+  })
+ 
+ app.get('/addproduct',(req,res) =>{
   return res.render("addproduct");
-})
-
-app.get('/viewprod_details',(req,res) =>{
-   return res.render("viewprod_details");
  })
+
+ app.get('/viewprod_details',(req,res) =>{
+   return res.render("viewprod_details");
+  })
 
  app.get('/addstaff',(req,res) => {
    return res.render('addstaff');
@@ -64,9 +73,66 @@ app.get('/viewprod_details',(req,res) =>{
     return res.render('signup');
   })
 
+  app.get('/user_login',(req,res) => {
+    return res.render('user_login');
+  })
+
   app.get('/forgetpassword',(req,res) => {
     return res.render('forgetpassword');
   })
+
+  app.get('/viewsales',(req,res) => {
+    return res.render('viewsales');
+  })
+
+
+// processing of forms 
+    app.post('/signup',async (req,res) => {
+        try{
+              const {username,phone} = req.body;
+              const password = await bcrypt.hash(req.body.password,20);
+              const user_exist = await tbl_users.findOne({where:{username:username}});
+              if(user_exist){
+                  res.render("signup",{msg_err:"Sorry! User Already Exist"});
+              }else{
+                console.log(" insert data");
+                    const create_user = await tbl_users.build({
+                    username,
+                    phone,
+                    password 
+                    })
+                    create_user.save();
+                    res.redirect('http://localhost:5100'); 
+                }
+        }catch(err){
+          return console.log({message:err});
+        }
+
+    })
+
+    app.post('/user_login', async (req,res) => {
+       try{
+        const {username,pass} = req.body;
+        const UserExist = await tbl_users.findOne({where:{username:username}});
+        const hashpassword = await bcrypt.compare(pass, UserExist.password);
+        console.log(hashpassword);
+         if(UserExist){
+             if(hashpassword){
+                 res.redirect("dashboard");
+             }else{
+                console.log(" the password do not match ");
+             }
+        }else{
+          console.log(" user not found ");
+        }
+
+      }catch(error){
+        return console.log(error);
+      }
+    
+    })
+
+
 
 
 

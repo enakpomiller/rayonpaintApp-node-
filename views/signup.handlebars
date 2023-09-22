@@ -32,26 +32,29 @@
     <body id="mimin" class="dashboard form-signin-wrapper">
 
       <div class="container">
+   
 
-        <form class="form-signin">
+        <form class="form-signin" action="/signup" method="POST">
           <div class="panel periodic-login" style="position:relative;width:500px;right:70px;top:50px;">
               <span class="atomic-number">Rayon Paint</span>
               <div class="panel-body text-center" style="width:100%;">
                   <h4> Signup </h4> 
-
                   <i class="icons icon-arrow-down"></i>
                   <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                    <input type="text" class="form-text" required>
+                          {{#if msg_err}}
+                           <div class="text-danger" >{{msg_err}} </div>
+                          {{/if}}
+                    <input type="text" name="username" class="form-text" required>
                     <span class="bar"></span>
                     <label>Username</label>
                   </div>
                   <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                    <input type="text" class="form-text" required>
+                    <input type="text" name="phone" class="form-text" required>
                     <span class="bar"></span>
-                    <label>Email</label>
+                    <label> Phone </label>
                   </div>
                   <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                    <input type="text" class="form-text" required>
+                    <input type="password" name="password" class="form-text" required>
                     <span class="bar"></span>
                     <label>Password</label>
                   </div>
@@ -61,7 +64,7 @@
                   <input type="submit" class="btn col-md-12" value="SignUp"/>
               </div>
                 <div class="text-center" style="padding:5px;">
-                    <a href="/">Already have an account?</a>
+                    <a href="/user_login">Already have an account?</a>
                 </div>
           </div>
         </form>
