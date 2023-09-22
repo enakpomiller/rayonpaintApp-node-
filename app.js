@@ -95,14 +95,13 @@ sequelize.authenticate().then(() => {
               if(user_exist){
                   res.render("signup",{msg_err:"Sorry! User Already Exist"});
               }else{
-                console.log(" insert data");
-                    const create_user = await tbl_users.build({
-                    username,
-                    phone,
-                    password 
-                    })
-                    create_user.save();
-                    res.redirect('http://localhost:5100'); 
+                  const create_user = await tbl_users.build({
+                  username,
+                  phone,
+                  password 
+                  })
+                  create_user.save();
+                  res.redirect('http://localhost:5100'); 
                 }
         }catch(err){
           return console.log({message:err});
@@ -112,19 +111,19 @@ sequelize.authenticate().then(() => {
 
     app.post('/user_login', async (req,res) => {
        try{
-        const {username,pass} = req.body;
-        const UserExist = await tbl_users.findOne({where:{username:username}});
-        const hashpassword = await bcrypt.compare(pass, UserExist.password);
-        console.log(hashpassword);
-         if(UserExist){
-             if(hashpassword){
-                 res.redirect("dashboard");
-             }else{
-                console.log(" the password do not match ");
-             }
-        }else{
-          console.log(" user not found ");
-        }
+          const {username,pass} = req.body;
+          console.log(pass);
+          const UserExist = await tbl_users.findOne({where:{username:username}});
+          const hashpassword = await bcrypt.compare(pass, UserExist.password);
+          if(UserExist){
+              if(hashpassword){
+                  res.redirect("dashboard");
+              }else{
+                  res.render("user_login",{msg_err:" wrong password "});
+              }
+          }else{
+              res.render("user_login",{msg_err:" incorrect credentials  "});
+          }
 
       }catch(error){
         return console.log(error);
