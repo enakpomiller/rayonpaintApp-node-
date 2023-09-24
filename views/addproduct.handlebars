@@ -58,12 +58,13 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Akihiko Avaron</span></li>
+                <li class="user-name"><span> {{user}} </span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
                      <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
+                      <li><a href="/logout" onclick="return confirm(' are you sure you want to log out')"><span class="fa fa-calendar"></span> Logout </a></li>
                      <li role="separator" class="divider"></li>
                      <li class="more">
                       <ul>
@@ -89,6 +90,7 @@
                 <ul class="nav nav-list">
                     <li><div class="left-bg"></div></li>
                     <li class="time">
+                      <h3 class="text-center">{{user}}</h3>
                       <h1 class="animated fadeInLeft">21:00</h1>
                       <p class="animated fadeInRight">Sat,October 1st 2029</p>
                     </li>
@@ -187,27 +189,33 @@
 
                   <div class="panel-body">
                       <div class="col-md-8 col-sm-12 ">
+                        {{#if msg_success}}
+                              <div class="text-light text-center  alert alert-primary">{{msg_success}} </div>
+                        {{/if}}
+                           {{#if msg_err}}
+                              <div class="text-light text-center  alert alert-danger">{{msg_err}} </div>
+                        {{/if}}
                      <!-- start form -->
-                     <form style="position:relative;top:20px;" class="">
+                     <form style="position:relative;top:20px;" action="/addproduct" class="" method="POST">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label"> Product Name  </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" required  name="prodname" value="{{prodname}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Product Price</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <input type="text" required  name="prodprice" class="form-control" id="exampleInputPassword1">
                         </div>
                            <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Product Quantity</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
+                            <input type="number" name="prodqty" class="form-control" id="exampleInputPassword1">
                         </div>
                               <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Number Of Paint Per Color</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
+                            <input type="number" required  name="colorqty" class="form-control" id="exampleInputPassword1">
                         </div>
-                            <div class="mb-3">
-                              <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                          <div class="mb-3">
+                              <label for="exampleInputPassword1" class="form-label">date of purchase </label>
+                            <input type="date"  required  name="date_of_purchase" class="form-control" id="exampleInputPassword1">
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -361,7 +369,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4>Akihiko Avaron</h4>
+                    <a href="#" class="close-chat">X</a><h4>{{user}} </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">

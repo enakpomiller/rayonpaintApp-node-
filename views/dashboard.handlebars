@@ -57,12 +57,13 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Akihiko Avaron</span></li>
+                <li class="user-name"><span>{{user}}</span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
                      <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
+                     <li><a href="/logout" onclick=" return confirm('do you wish to log out')"><span class="fa fa-calendar"></span> Logout </a></li>
                      <li role="separator" class="divider"></li>
                      <li class="more">
                       <ul>
@@ -88,6 +89,7 @@
                 <ul class="nav nav-list">
                     <li><div class="left-bg"></div></li>
                     <li class="time">
+                      <h3 class="text-center"> {{user}}</h3>
                       <h1 class="animated fadeInLeft">21:00</h1>
                       <p class="animated fadeInRight">Sat,October 1st 2029</p>
                     </li>
@@ -369,28 +371,12 @@
                               </div>
                             </div>
 
-                            <div class="col-md-12 padding-0">
-                              <div class="panel bg-light-blue">
-                                <div class="panel-body text-white">
-                                   <p class="animated fadeInUp quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit Ut wisi..."</p>
-                                    <div class="col-md-12 padding-0">
-                                      <div class="text-left col-md-7 col-xs-12 col-sm-7 padding-0">
-                                        <span class="fa fa-twitter fa-2x"></span>
-                                        <span>22 May, 2015 via mobile</span>
-                                      </div>
-                                      <div style="padding-top:8px;" class="text-right col-md-5 col-xs-12 col-sm-5 padding-0">
-                                        <span class="fa fa-retweet"></span> 2000
-                                        <span class="fa fa-star"></span> 3000
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
+
                         </div>
                     </div>  
       		  </div>
           <!-- end: content -->
-
+  
     
           <!-- start: right menu -->
             <div id="right-menu">
@@ -531,7 +517,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4>Akihiko Avaron</h4>
+                    <a href="#" class="close-chat">X</a><h4> {{user}} </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">
@@ -622,73 +608,73 @@
                               <div class="user-list">
                                 <ul>
                                   <li class="online">
-                                    <a href=""  data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href=""  data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <div class="user-avatar"><img src="asset/img/avatar.jpg" alt="user name"></div>
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="offline">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="away">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="online">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="offline">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="away">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="offline">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="offline">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="away">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="online">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="away">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>
                                   </li>
                                   <li class="away">
-                                    <a href="" data-toggle="tooltip" data-placement="left" title="Akihiko avaron">
+                                    <a href="" data-toggle="tooltip" data-placement="left" title="{{user}}">
                                       <img src="asset/img/avatar.jpg" alt="user name">
                                       <div class="dot"></div>
                                     </a>

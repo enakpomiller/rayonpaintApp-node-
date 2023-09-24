@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyPaser = require('body-parser');
 const bcrypt = require("bcrypt");
+const session = require('express-session');
 const exphbs = require('express-handlebars');
 const {Sequelize, QueryTypes, EmptyResultError} = require("sequelize");
 
@@ -13,7 +14,7 @@ app.set('view engine','handlebars');
 app.use(bodyPaser.urlencoded({ extended : false}))
 // set static folder
 app.use(express.static("public"));
-app.use("/uploads",express.static("uploads"));
+app.use("/uploads",express.static("uploads")); 
 
 
 app.get('/', (req, res)=> res.render('index',{ layout:'landing'}));
@@ -31,22 +32,55 @@ sequelize.authenticate().then(() => {
   username:Sequelize.STRING,
   phone:Sequelize.STRING,
   password:Sequelize.STRING 
-
-},{tablename:"tbl_users"});
+ },{tablename:"tbl_users"});
 // close table setting 
 
 
+ const tbl_products = sequelize.define('tbl_product',{
+   prodname:Sequelize.STRING,
+   prodprice:Sequelize.STRING,
+   prodqty:Sequelize.STRING,
+   colorqty:Sequelize.STRING,
+   date_of_purchase:Sequelize.STRING 
+},{tablename:'tbl_products'} );
+   tbl_products.sync();
+
+
+
+  // setting session config 
+  app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+  }))
+
   //creating and loading forms
  app.get('/dashboard',(req,res) =>{
-   res.render("dashboard");
+  if(req.session.loggedin){
+    res.render("dashboard");
+  }else{
+    res.render("user_login",{msg_err:" PLEASE LOGIN  "});
+  }
+  
   })
  
  app.get('/addproduct',(req,res) =>{
-  return res.render("addproduct");
+  if(req.session.username){
+    const user = req.session.username;
+    return res.render("addproduct",{user});
+  }else{
+    return res.render("user_login",{msg_err:" PLEASE LOGIN"});
+  }
  })
 
- app.get('/viewprod_details',(req,res) =>{
-   return res.render("viewprod_details");
+ app.get('/viewprod_details',async (req,res) =>{
+    const allrec = await tbl_products.findAll();
+    if(req.session.username){
+      res.render("viewprod_details",{allrec});
+    }else{
+      res.render("user_login");
+    }
+   
   })
 
  app.get('/addstaff',(req,res) => {
@@ -86,6 +120,9 @@ sequelize.authenticate().then(() => {
   })
 
 
+
+
+
 // processing of forms 
     app.post('/signup',async (req,res) => {
         try{
@@ -93,7 +130,7 @@ sequelize.authenticate().then(() => {
               const password = await bcrypt.hash(req.body.password,20);
               const user_exist = await tbl_users.findOne({where:{username:username}});
               if(user_exist){
-                  res.render("signup",{msg_err:"Sorry! User Already Exist"});
+                  res.render("signup",{msg_err:" SORRY USER ALREADY EXIST"});
               }else{
                   const create_user = await tbl_users.build({
                   username,
@@ -101,7 +138,7 @@ sequelize.authenticate().then(() => {
                   password 
                   })
                   create_user.save();
-                  res.redirect('http://localhost:5100'); 
+                  res.redirect('user_login'); 
                 }
         }catch(err){
           return console.log({message:err});
@@ -109,21 +146,29 @@ sequelize.authenticate().then(() => {
 
     })
 
+    // login module 
     app.post('/user_login', async (req,res) => {
        try{
-          const {username,pass} = req.body;
-          console.log(pass);
-          const UserExist = await tbl_users.findOne({where:{username:username}});
-          const hashpassword = await bcrypt.compare(pass, UserExist.password);
-          if(UserExist){
-              if(hashpassword){
-                  res.redirect("dashboard");
-              }else{
-                  res.render("user_login",{msg_err:" wrong password "});
-              }
-          }else{
-              res.render("user_login",{msg_err:" incorrect credentials  "});
-          }
+            const {username,password} = req.body;
+            const CheckUser = await tbl_users.findOne(
+              {where:{
+                username
+              }});
+
+           if(CheckUser){
+                const match = await bcrypt.compare(password, CheckUser.password)
+                if(match){
+                  req.session.loggedin = true;
+                  req.session.username = username;
+                  const user = req.session.username;
+                  res.render("dashboard",{user});
+                }else{
+                  res.render('user_login',{msg_err:" INCORRECT USER DETAILS  "});
+                }
+               
+           }else{
+            res.render('user_login',{msg_err:" USER DOES NOT  EXIST "});
+           }
 
       }catch(error){
         return console.log(error);
@@ -131,7 +176,50 @@ sequelize.authenticate().then(() => {
     
     })
 
+    // add product 
+    app.post('/addproduct',async(req,res) =>{
+        try{
+          const {prodname,prodprice,prodqty,colorqty,date_of_purchase} = req.body;
+            if(prodname =="" || prodprice=="" || prodqty=="" || colorqty=="" || date_of_purchase==""){
+              const  user = req.session.username;
+                res.render("addproduct",{user});
+                
+            }else{
+              const insert = await tbl_products.build({
+                prodname,
+                prodprice,
+                prodqty,
+                colorqty,
+                date_of_purchase
+              });
+              insert.save();
+              res.render("addproduct",{msg_success:" Product created successfully"});
+            }
 
+            }catch(error){
+              console.log(error);  
+            }
+          
+    })
+
+
+
+
+
+
+
+
+    // logout session 
+app.get('/logout',(req,res) =>{
+    req.session.destroy(err =>{
+      if(err){
+        console.error('Error destroying session:', err);
+      }else{
+        res.redirect('/user_login');
+      }
+    })
+
+})
 
 
 

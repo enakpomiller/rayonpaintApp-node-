@@ -59,7 +59,7 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Akihiko Avaron</span></li>
+                <li class="user-name"><span> {{user}}   </span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
@@ -254,21 +254,27 @@
                                     <th scope="col">Product Nmae</th>
                                     <th scope="col">Product Price</th>
                                     <th scope="col"> Product Quantity</th>
+                                    <th scope="col"> Color Quantity</th>
+                                    <th scope="col"> Purchase date </th>
+                                    <th scope="col" class="text-center"> Action </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                    </tr>
+                                      {{#each allrec}}
+                                        <tr>
+                                        <th scope="row">{{_previousDataValues.id}}</th>
+                                        <td>{{_previousDataValues.prodname}} </td>
+                                        <td> {{_previousDataValues.prodprice}}</td>
+                                        <td> {{_previousDataValues.prodqty}}</td>
+                                        <td> {{_previousDataValues.colorqty}}</td>
+                                        <td> {{_previousDataValues.date_of_purchase}}</td>
+                                        <td> 
+                                          <a href="" class="btn btn-primary w-25"><i class="fa fa-pencil"></i>  edit</a>
+                                          <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> del</a>
+                                        
+                                        </td>
+                                        </tr>
+                                    {{/each}}
                                 </tbody>
                             </table>
                      <p> <br> 
@@ -416,7 +422,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4>Akihiko Avaron</h4>
+                    <a href="#" class="close-chat">X</a><h4> {{user}}  </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">
