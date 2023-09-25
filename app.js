@@ -45,7 +45,28 @@ sequelize.authenticate().then(() => {
 },{tablename:'tbl_products'} );
    tbl_products.sync();
 
+   const tbl_staff = sequelize.define('tbl_staff',{
+     firstname:Sequelize.STRING,
+     othernames:Sequelize.STRING,
+     email:Sequelize.STRING,
+     phone:Sequelize.STRING,
+     address:Sequelize.STRING,
+     position:Sequelize.STRING,
+     monthlypay:Sequelize.STRING
 
+  },{tablename:'tbl_staff'});
+  tbl_staff.sync();  
+
+const tbl_sale = sequelize.define('tbl_sale',{
+    prodname:Sequelize.STRING,
+    prodprice:Sequelize.STRING,
+    prodbrand:Sequelize.STRING,
+    soldqty:Sequelize.STRING,
+    amount:Sequelize.STRING,
+    clientname:Sequelize.STRING,
+    clientphone:Sequelize.STRING
+},{tablename:'tbl_sale'});
+tbl_sale.sync();
 
   // setting session config 
   app.use(session({
@@ -57,7 +78,8 @@ sequelize.authenticate().then(() => {
   //creating and loading forms
  app.get('/dashboard',(req,res) =>{
   if(req.session.loggedin){
-    res.render("dashboard");
+    const user = req.session.username;
+    res.render("dashboard",{user});
   }else{
     res.render("user_login",{msg_err:" PLEASE LOGIN  "});
   }
@@ -76,23 +98,55 @@ sequelize.authenticate().then(() => {
  app.get('/viewprod_details',async (req,res) =>{
     const allrec = await tbl_products.findAll();
     if(req.session.username){
-      res.render("viewprod_details",{allrec});
+      const user = req.session.username;
+      res.render("viewprod_details",{allrec,user});
     }else{
-      res.render("user_login");
+      res.render("user_login"); 
     }
    
   })
 
  app.get('/addstaff',(req,res) => {
-   return res.render('addstaff');
+    if(req.session.username){
+      const user = req.session.username;
+      return res.render('addstaff',{user});
+    }else{
+      return res.render('user_login');
+    }
+  
  })
 
- app.get('/viewstaff',(req,res) => {
-  return res.render('viewstaff');
+
+ app.get('/viewstaff',async (req,res) => {
+   try{
+      const getallstaff = await tbl_staff.findAll();
+       if(getallstaff){
+        const user = req.session.username;
+        return res.render('viewstaff',{user,getallstaff});
+       }else{
+        const msg_err = " NO RECORD FOUND ";
+        return res.render('viewstaff',{msg_err,user});
+      }
+      
+  }catch(err){
+    return console.log(err);
+  }
+  
   })
 
   app.get('/paymentdetails',(req,res) => {
     return res.render('paymentdetails');
+  })
+
+  app.get('/addsales',(req,res) => {
+     if(req.session.username){
+      const title = " Add Sales ";
+      const user = req.session.username;
+      return res.render('addsales',{user,title});
+    }else{
+      return res.render('user_login');
+    }
+    
   })
   
   app.get('/addclient',(req,res) => {
@@ -115,8 +169,15 @@ sequelize.authenticate().then(() => {
     return res.render('forgetpassword');
   })
 
-  app.get('/viewsales',(req,res) => {
-    return res.render('viewsales');
+  app.get('/viewsales',async (req,res) => {
+     if(req.session.username){
+      const user = req.session.username;
+      const allsales = await tbl_sale.findAll();
+      return res.render('viewsales',{user,allsales});
+    }else{
+      return res.redirect('user_login');
+    }
+    
   })
 
 
@@ -156,15 +217,20 @@ sequelize.authenticate().then(() => {
               }});
 
            if(CheckUser){
-                const match = await bcrypt.compare(password, CheckUser.password)
-                if(match){
-                  req.session.loggedin = true;
-                  req.session.username = username;
-                  const user = req.session.username;
-                  res.render("dashboard",{user});
-                }else{
-                  res.render('user_login',{msg_err:" INCORRECT USER DETAILS  "});
-                }
+                req.session.loggedin = true;
+                req.session.username = username;
+                const user = req.session.username;
+                res.render("dashboard",{user});
+
+                // const match = await bcrypt.compare(password, CheckUser.password)
+                // if(match){
+                //   req.session.loggedin = true;
+                //   req.session.username = username;
+                //   const user = req.session.username;
+                //   res.render("dashboard",{user});
+                // }else{
+                //   res.render('user_login',{msg_err:" INCORRECT USER DETAILS  "});
+                // }
                
            }else{
             res.render('user_login',{msg_err:" USER DOES NOT  EXIST "});
@@ -203,10 +269,70 @@ sequelize.authenticate().then(() => {
     })
 
 
+// add staff rout 
+  app.post('/addstaff',async(req,res) =>{
+      try{
+         const {firstname,othernames,email,phone,address,position,monthlypay} = req.body;
+         const userexist = await tbl_staff.findOne({
+           where:{
+            email:email
+          }
+        });
+        if(userexist){
+          const user = req.session.username;
+           const msg_err = " SORRY THIS STAFF ALREADY EXIST";
+           res.render("addstaff",{msg_err,user});
+        }else{
+            const create_staff = await tbl_staff.build({
+              firstname,
+              othernames,
+              email,
+              phone,
+              address,
+              position,
+              monthlypay
+            })
+            create_staff.save();
+            const user = req.session.username;
+            const msg_success = " STAFF CREATED SUCCESSFULLY";
+            res.render("addstaff",{msg_success,user});
+        }
+      }catch(err){
+       return console.log(err);
+      }
+})
 
 
 
+// add sale rout 
+app.post('/addsales',async(req,res) =>{
+   if(req.session.username){
+    try{
+      const {prodname,prodprice,prodbrand,soldqty,amount,clientname,clientphone} = req.body;
+         const create_sale = await tbl_sale.build({
+           prodname,
+           prodprice,
+           prodbrand,
+           soldqty,
+           amount,
+           clientname,
+           clientphone
+         })
+         create_sale.save();
+         const user = req.session.username;
+         const msg_success = " SALES ADDED  SUCCESSFULLY";
+         res.render("addsales",{msg_success,user});
+     
+   }catch(err){
+    return console.log(err);
+   }
+   }else{
+     return res.redirect('user_login');
+  
+  }
 
+
+})
 
 
     // logout session 

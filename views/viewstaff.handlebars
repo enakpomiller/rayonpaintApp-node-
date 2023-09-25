@@ -59,7 +59,7 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Akihiko Avaron</span></li>
+                <li class="user-name"><span> {{user}} </span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
@@ -90,6 +90,7 @@
                 <ul class="nav nav-list">
                     <li><div class="left-bg"></div></li>
                     <li class="time">
+                      <h3 class="text-center">{{user}}</h3>
                       <h1 class="animated fadeInLeft">21:00</h1>
                       <p class="animated fadeInRight">Sat,October 1st 2029</p>
                     </li>
@@ -231,30 +232,37 @@
 
                 <div id="content" class="panel" style="width:95%;margin:auto;">
                   <div class="panel-body" style="position:relative;right:100px;">
-                      <div class="col-md-12 col-sm-12">
+                      <div class="col-md-12 col-md-12">
                      <!-- start form -->
-                            <table class="table table-striped" style="margin-top:50px;">
+                            <table class="table table-striped" style="margin-top:50px;width:100%;">
                                 <thead>
                                     <tr>
                                     <th scope="col">S/n</th>
-                                    <th scope="col">Product Nmae</th>
-                                    <th scope="col">Product Price</th>
-                                    <th scope="col"> Product Quantity</th>
+                                    <th scope="col"> First Name  </th>
+                                    <th scope="col"> Last Names  </th>
+                                    <th scope="col"> Phone  </th>
+                                     <th scope="col"> Address  </th>
+                                     <th scope="col"> Position </th>
+                                     <th scope="col"> Payment </th>
+                                     <th scope="col" class="text-center">   Action  </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                   {{#each getallstaff}}
                                     <tr>
                                     <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>{{_previousDataValues.firstname}} </td>
+                                    <td> {{_previousDataValues.othernames}} </td>
+                                    <td>{{_previousDataValues.phone}}</td>
+                                    <td>{{_previousDataValues.address}}</td>
+                                    <td>{{_previousDataValues.position}}</td>
+                                    <td>{{_previousDataValues.monthlypay}}</td>
+                                    <td style="width:25%;" align="center">
+                                      <a href="" class="btn btn-primary pl-2 w-25"><i class="fa fa-pencil"></i> Edit</a>
+                                      <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Del</a>
+                                    </td>
                                     </tr>
-                                    <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                    </tr>
+                                    {{/each}}
                                 </tbody>
                             </table>
                      <p> <br> 
@@ -404,7 +412,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4>Akihiko Avaron</h4>
+                    <a href="#" class="close-chat">X</a><h4> {{user}} </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">

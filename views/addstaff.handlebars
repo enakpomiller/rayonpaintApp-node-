@@ -59,12 +59,14 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Akihiko Avaron</span></li>
+                <li class="user-name"><span>  {{user}}  </span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
                      <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
+
+                    <li><a href="/logout"><span class="fa fa-calendar"></span> Logout </a></li>
                      <li role="separator" class="divider"></li>
                      <li class="more">
                       <ul>
@@ -90,6 +92,7 @@
                 <ul class="nav nav-list">
                     <li><div class="left-bg"></div></li>
                     <li class="time">
+                      <h3 class="text-center">{{user}}</h3>
                       <h1 class="animated fadeInLeft">21:00</h1>
                       <p class="animated fadeInRight">Sat,October 1st 2029</p>
                     </li>
@@ -145,51 +148,9 @@
                         <li><a href="#">Text Editor</a></li>
                       </ul>
                     </li>
-                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-table"></span> Tables  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-                      <ul class="nav nav-list tree">
-                        <li><a href="datatables.html">Data Tables</a></li>
-                        <li><a href="handsontable.html">handsontable</a></li>
-                        <li><a href="tablestatic.html">Static</a></li>
-                      </ul>
+          
                     </li>
-                    <li class="ripple"><a href="calendar.html"><span class="fa fa-calendar-o"></span>Calendar</a></li>
-                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-envelope-o"></span> Mail <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-                      <ul class="nav nav-list tree">
-                        <li><a href="mail-box.html">Inbox</a></li>
-                        <li><a href="compose-mail.html">Compose Mail</a></li>
-                        <li><a href="view-mail.html">View Mail</a></li>
-                      </ul>
-                    </li>
-                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-file-code-o"></span> Pages  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-                      <ul class="nav nav-list tree">
-                        <li><a href="forgotpass.html">Forgot Password</a></li>
-                        <li><a href="login.html">SignIn</a></li>
-                        <li><a href="reg.html">SignUp</a></li>
-                        <li><a href="article-v1.html">Article v1</a></li>
-                        <li><a href="search-v1.html">Search Result v1</a></li>
-                        <li><a href="productgrid.html">Product Grid</a></li>
-                        <li><a href="profile-v1.html">Profile v1</a></li>
-                        <li><a href="invoice-v1.html">Invoice v1</a></li>
-                      </ul>
-                    </li>
-                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa "></span> MultiLevel  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-                      <ul class="nav nav-list tree">
-                        <li><a href="view-mail.html">Level 1</a></li>
-                        <li><a href="view-mail.html">Level 1</a></li>
-                        <li class="ripple">
-                          <a class="sub-tree-toggle nav-header">
-                            <span class="fa fa-envelope-o"></span> Level 1
-                            <span class="fa-angle-right fa right-arrow text-right"></span>
-                          </a>
-                          <ul class="nav nav-list sub-tree">
-                            <li><a href="mail-box.html">Level 2</a></li>
-                            <li><a href="compose-mail.html">Level 2</a></li>
-                            <li><a href="view-mail.html">Level 2</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a href="credits.html">Credits</a></li>
+  
                   </ul>
                 </div>
             </div>
@@ -247,38 +208,44 @@
 
                   <div class="panel-body">
                       <div class="col-md-8 col-sm-12 ">
+                         {{#if msg_success}}
+                              <div class="text-light text-center  text-primary">{{msg_success}} </div>
+                        {{/if}}
+                        {{#if msg_err}}
+                              <div class="text-light text-center  text-danger">{{msg_err}} </div>
+                        {{/if}}
                      <!-- start form -->
-                     <form style="position:relative;top:20px;" class="">
+                     <form style="position:relative;top:20px;" action="/addstaff" method="POST" class="">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label"> First Name </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" required  name="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Other Names</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <input type="text" required  name="othernames" class="form-control" id="exampleInputPassword1">
                         </div>
                            <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label"> Email </label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
+                            <input type="email" required  name="email" class="form-control" id="exampleInputPassword1">
                         </div>
                               <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label"> Phone Number</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
+                            <input type="text" required  name="phone" class="form-control" id="exampleInputPassword1">
                         </div>
                             <div class="mb-3">
                               <label for="exampleInputPassword1" class="form-label"> Address </label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <input type="text" required  name="address" class="form-control" id="exampleInputPassword1">
                         </div>
                          <div class="mb-3">
                               <label for="exampleInputPassword1" class="form-label"> Position </label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <input type="text" required  name="position" class="form-control" id="exampleInputPassword1">
                         </div>
                          <div class="mb-3">
-                              <label for="exampleInputPassword1" class="form-label"> Monthly Payment </label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                              <label for="exampleInputPassword1" class="form-label"> Monthly Pay </label>
+                            <input type="text" required  name="monthlypay" class="form-control" id="exampleInputPassword1">
                         </div>
                             <br> 
-                        <button type="submit" class="btn text-white" style="background:#2196f3;width:100%;"> Save Record</button>
+                        <button type="submit" class="btn text-white" style="background:#2196f3;width:100%;"> Save Recordxx</button>
                      </form>
                      <p> <br> 
                        <!-- end form -->
@@ -426,7 +393,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4>Akihiko Avaron</h4>
+                    <a href="#" class="close-chat">X</a><h4> {{user}} </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">
@@ -842,22 +809,8 @@
                         <li><a href="#">Text Editor</a></li>
                       </ul>
                     </li>
-                    <li class="ripple">
-                      <a class="tree-toggle nav-header">
-                        <span class="fa fa-table"></span>Tables
-                        <span class="fa-angle-right fa right-arrow text-right"></span>
-                      </a>
-                      <ul class="nav nav-list tree">
-                        <li><a href="datatables.html">Data Tables</a></li>
-                        <li><a href="handsontable.html">handsontable</a></li>
-                        <li><a href="tablestatic.html">Static</a></li>
-                      </ul>
-                    </li>
-                    <li class="ripple">
-                      <a href="calendar.html">
-                         <span class="fa fa-calendar-o"></span>Calendar
-                      </a>
-                    </li>
+ 
+              
                     <li class="ripple">
                       <a class="tree-toggle nav-header">
                         <span class="fa fa-envelope-o"></span>Mail
