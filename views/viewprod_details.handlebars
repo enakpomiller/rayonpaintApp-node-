@@ -12,6 +12,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Miminium</title>
  
+ <!-- datatable bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+		<!-- enddatatable bootstrap -->
     <!-- start: Css -->
     <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
 
@@ -202,9 +205,9 @@
 
                 <div id="content" class="panel" style="width:95%;margin:auto;">
                   <div class="panel-body" style="position:relative;right:100px;">
-                      <div class="col-md-12 col-sm-12">
+                      <div class="col-md-12 col-sm-12" style="margin-top:30px ;">
                      <!-- start form -->
-                            <table class="table table-striped" style="margin-top:50px;">
+                            <table class="table table-striped" id="table" style="position:relative;">
                                 <thead>
                                     <tr>
                                     <th scope="col">Product Nmae</th>
@@ -1148,5 +1151,20 @@
       })(jQuery);
      </script>
   <!-- end: Javascript -->
+
+
+<!-- datatable script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+<!-- end datatable script -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+</script>
+
   </body>
 </html>
+
+
+

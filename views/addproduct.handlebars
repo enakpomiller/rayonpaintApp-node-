@@ -185,44 +185,54 @@
                   </div>                    
                 </div>
 
-                  <div id="content" class="panel" style="width:95%;margin:auto;">
+                  <div id="content" class="panel" style="width:95%;margin:auto;height:500px;">
+                            {{#if msg_success}}
+                                  <div class="text-light text-center  alert alert-primary">{{msg_success}} </div>
+                            {{/if}}
+                              {{#if msg_err}}
+                                  <div class="text-light text-center  alert alert-danger">{{msg_err}} </div>
+                            {{/if}}
 
                   <div class="panel-body">
-                      <div class="col-md-8 col-sm-12 ">
-                        {{#if msg_success}}
-                              <div class="text-light text-center  alert alert-primary">{{msg_success}} </div>
-                        {{/if}}
-                           {{#if msg_err}}
-                              <div class="text-light text-center  alert alert-danger">{{msg_err}} </div>
-                        {{/if}}
-                     <!-- start form -->
-                     <form style="position:relative;top:20px;" action="/addproduct" class="" method="POST">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label"> Product Name  </label>
-                            <input type="text" required  name="prodname" value="{{prodname}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Product Price</label>
-                            <input type="text" required  name="prodprice" class="form-control" id="exampleInputPassword1">
-                        </div>
-                           <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Product Quantity</label>
-                            <input type="number" name="prodqty" class="form-control" id="exampleInputPassword1">
-                        </div>
-                              <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Number Of Paint Per Color</label>
-                            <input type="number" required  name="colorqty" class="form-control" id="exampleInputPassword1">
-                        </div>
-                          <div class="mb-3">
-                              <label for="exampleInputPassword1" class="form-label">date of purchase </label>
-                            <input type="date"  required  name="date_of_purchase" class="form-control" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn text-white" style="background:#2196f3; width:100%;"> Save Record</button>
-                     </form>
+                      <div class="col-lg-14 col-sm-12" style="position:relative;right:105px;">
+                         <!-- start form -->
+                          <form style="position:relative;top:20px;" action="/addproduct" class="" method="POST">
+                          <div class="row">
+                            <div class="col-md-6">
+                                       <div class="mb-3">
+                                           <label for="exampleInputEmail1" class="form-label"> Product Name  </label>
+                                         <input type="text" required  name="prodname" value="{{prodname}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                      </div>
+                                        <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Product Price</label>
+                                <input type="text" required  name="prodprice" class="form-control" id="exampleInputPassword1">
+                            </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">date of purchase </label>
+                                  <input type="date"  required  name="date_of_purchase" class="form-control" id="exampleInputPassword1">
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="mb-3">
+                                      <label for="exampleInputPassword1" class="form-label">Product Quantity</label>
+                                      <input type="number" name="prodqty" class="form-control" id="exampleInputPassword1">
+                                  </div>
+                                     <div class="mb-3">
+                                         <label for="exampleInputPassword1" class="form-label">Number Of Paint Per Color</label>
+                                         <input type="number" required  name="colorqty" class="form-control" id="exampleInputPassword1">
+                                     </div>
+                                          <div class="mb-3" style="margin-top:20px;">
+                                             <button type="submit" class="btn text-white" style="background:#2196f3; width:100%;border:0px;border-radius:3px;"> Save Record</button>
+                                         </div>
+                            </div>
+                          </div>
+
+              
+
+                       
+                        
+
+                         </form>
                      <p> <br> 
                        <!-- end form -->
                  </div>     
@@ -711,7 +721,7 @@
       </div>
 
 
-           <div class="panel" style="position:relative;top:85px;">
+           <div class="panel" style="position:relative;top:50px;">
                 <div class="panel-body">
                     <p class="text-center"> Allright reserved@rayonpaint </p>
                 </div>

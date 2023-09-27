@@ -101,7 +101,7 @@ tbl_sale.sync();
       const user = req.session.username;
       res.render("viewprod_details",{allrec,user});
     }else{
-      res.render("user_login"); 
+      res.render("user_login");  
     }
    
   })
