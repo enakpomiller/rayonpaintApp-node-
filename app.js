@@ -105,6 +105,18 @@ tbl_sale.sync();
     }
    
   })
+ 
+  app.get('/viewusers',async(req,res) =>{
+      if(req.session.username){
+        const user = req.session.username;
+        const title =  " view Users";
+        const getusers = await tbl_users.findAll();
+        return res.render('viewusers',{user,getusers,title});
+      }else{
+        return res.redirect('user_login');
+      }
+  
+  })
 
  app.get('/addstaff',(req,res) => {
     if(req.session.username){
@@ -135,7 +147,13 @@ tbl_sale.sync();
   })
 
   app.get('/paymentdetails',(req,res) => {
-    return res.render('paymentdetails');
+    if(req.session.username){
+      const user = req.session.username;
+      return res.render('paymentdetails',{user});
+    }else{
+     return res.redirect('user_login'); 
+    }
+   
   })
 
   app.get('/addsales',(req,res) => {
@@ -150,15 +168,39 @@ tbl_sale.sync();
   })
   
   app.get('/addclient',(req,res) => {
-    return res.render('addclient');
+    if(req.session.username){
+      const user = req.session.username;
+     return res.render('addclient',{user});
+    }else{
+      return res.render('addclient');
+    }
+    
   })
 
   app.get('/viewclient',(req,res) => {
-    return res.render('viewclient');
+     try{
+      if(req.session.username){
+        const user = req.session.username;
+        return res.render('viewclient',{user});
+      }else{
+         return res.redirect("user_login");
+      }
+     
+    }catch(err){
+     console.log(err);
+    }
+    
   })
 
-  app.get('/signup',(req,res) => {
-    return res.render('signup');
+  app.get('/addusers',(req,res) => {
+   if(req.session.username){
+    const title = " Add Users ";
+    const user = req.session.username;
+    return res.render('addusers',{user,title});
+  }else{
+   return res.redirect('user_login');
+  }
+
   })
 
   app.get('/user_login',(req,res) => {
@@ -182,30 +224,29 @@ tbl_sale.sync();
 
 
 
+    // processing of forms 
+       app.post('/addusers',async (req,res) => { 
+             try{
+                  const {username,phone} = req.body;
+                  const password = await bcrypt.hash(req.body.password,20);
+                  const user_exist = await tbl_users.findOne({where:{username:username}});
+                  if(user_exist){
+                      res.render("addusers",{msg_err:" SORRY USER ALREADY EXIST"});
+                  }else{
+                       const create_user = await tbl_users.build({
+                      username,
+                      phone,
+                      password 
+                      })
+                      create_user.save();
+                      res.render('addusers',{msg_success:"User Created Successfullly"});
+                    
+                    }
+             }catch(err){
+                return console.log(err);
+             }
 
-
-// processing of forms 
-    app.post('/signup',async (req,res) => {
-        try{
-              const {username,phone} = req.body;
-              const password = await bcrypt.hash(req.body.password,20);
-              const user_exist = await tbl_users.findOne({where:{username:username}});
-              if(user_exist){
-                  res.render("signup",{msg_err:" SORRY USER ALREADY EXIST"});
-              }else{
-                  const create_user = await tbl_users.build({
-                  username,
-                  phone,
-                  password 
-                  })
-                  create_user.save();
-                  res.redirect('user_login'); 
-                }
-        }catch(err){
-          return console.log({message:err});
-        }
-
-    })
+        })
 
     // login module 
     app.post('/user_login', async (req,res) => {
@@ -335,17 +376,42 @@ app.post('/addsales',async(req,res) =>{
 })
 
 
-    // logout session 
-app.get('/logout',(req,res) =>{
-    req.session.destroy(err =>{
-      if(err){
-        console.error('Error destroying session:', err);
-      }else{
-        res.redirect('/user_login');
-      }
-    })
+  // delete users
+  app.get('/deleteusers',async(req,res) =>{
+    try{
+        const userid = req.query.id;
+        console.log(userid);
+          const deluser = await tbl_users.destroy({where:{id:userid}});
+          if(deluser){
+            res.redirect("viewusers");
+          }else{
+            res.render("viewusers");
+          }
+    }catch(err){
+      console.log(err);
+    }
+  })
+
+
+app.get('/editusers/:id',(req,res) =>{
+      const userid = req.params.id
+      const title = " Edit Users "
+      res.render("editusers",{title});
 
 })
+
+
+    // logout session 
+    app.get('/logout',(req,res) =>{
+        req.session.destroy(err =>{
+          if(err){
+            console.error('Error destroying session:', err);
+          }else{
+            res.redirect('/user_login');
+          }
+        })
+
+    })
 
 
 

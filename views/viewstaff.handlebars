@@ -10,6 +10,10 @@
 	<meta name="author" content="Isna Nur Azis">
 	<meta name="keyword" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- datatable bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+		<!-- enddatatable bootstrap -->
+    <!-- start: Css -->
     <title>Miminium</title>
  
     <!-- start: Css -->
@@ -231,10 +235,10 @@
                 </div>
 
                 <div id="content" class="panel" style="width:95%;margin:auto;">
-                  <div class="panel-body" style="position:relative;right:100px;">
+                  <div class="panel-body" style="position:relative;right:100px;top:30px;">
                       <div class="col-md-12 col-md-12">
                      <!-- start form -->
-                            <table class="table table-striped" style="margin-top:50px;width:100%;">
+                            <table class="table table-striped" id="table" style="margin-top:50px;width:100%;">
                                 <thead>
                                     <tr>
                                     <th scope="col">S/n</th>
@@ -250,7 +254,7 @@
                                 <tbody>
                                    {{#each getallstaff}}
                                     <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row"> {{_previousDataValues.id}}  </th>
                                     <td>{{_previousDataValues.firstname}} </td>
                                     <td> {{_previousDataValues.othernames}} </td>
                                     <td>{{_previousDataValues.phone}}</td>
@@ -1193,5 +1197,18 @@
       })(jQuery);
      </script>
   <!-- end: Javascript -->
+
+
+  <!-- datatable script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+<!-- end datatable script -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+</script>
+
+
   </body>
 </html>

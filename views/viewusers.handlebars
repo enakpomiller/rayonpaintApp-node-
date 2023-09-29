@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
 	<meta charset="utf-8">
 	<meta name="description" content="Miminium Admin Template v.1">
 	<meta name="author" content="Isna Nur Azis">
@@ -70,6 +69,7 @@
                    <ul class="dropdown-menu user-dropdown">
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
                      <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
+                     <li><a href="/logout" onclick="return confirm('system will log you out')"><span class="fa fa-calendar"></span> Logout </a></li>
                      <li role="separator" class="divider"></li>
                      <li class="more">
                       <ul>
@@ -87,8 +87,9 @@
         </nav>
       <!-- end: Header -->
 
+          
+
       <div class="container-fluid mimin-wrapper">
-  
           <!-- start:Left Menu -->
             <div id="left-menu">
               <div class="sub-left-menu scroll">
@@ -149,8 +150,8 @@
                 <div class="panel">
                   <div class="panel-body">
                       <div class="col-md-6 col-sm-12">
-                        <h3 class="animated fadeInLeft"> Sales Details   </h3>
-                        <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> Batavia,Indonesia</p>
+                        <h3 class="animated fadeInLeft">  {{title}}  </h3>
+                        <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> {{user}} </p>
                             <ul class="nav navbar-nav">
                                 <li><a href="" >Impedit</a></li>
                                 <li><a href="" class="active">Virtute</a></li>
@@ -190,47 +191,47 @@
                   </div>                    
                 </div>
 
+                 
+
                 <div id="content" class="panel" style="width:95%;margin:auto;">
+                           {{#if msg_del}}
+                            <div class="text-success">{{msg_del}}</div>
+                            {{/if}}
                   <div class="panel-body" style="position:relative;right:100px;top:30px;">
                       <div class="col-md-12 col-sm-12">
                      <!-- start form -->
-                            <table class="table table-striped" id="table" style="margin-top:50px;">
+                     
+                            <table class="table table-striped w-100" id="table" style="margin-top:50px;">
                                 <thead>
                                     <tr>
-                                    <th scope="col">Product Nmae</th>
-                                    <th scope="col">Product Price</th>
-                                    <th scope="col"> Product Brand</th>
-                                    <th scope="col"> Sold Qty</th>
-                                    <th scope="col"> Amount</th>
-                                    <th scope="col"> Client Name</th>
-                                    <th scope="col"> Client Phone </th>
+                                    <th scope="col"> Username </th>
+                                    <th scope="col"> Phone Number</th>
                                     <th scope="col" class="text-center"> Action </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{#each allsales}}
-                                    <tr>
-                                    <td> {{_previousDataValues.prodname}}  </td>
-                                    <td>{{_previousDataValues.prodprice}} </td>
-                                    <td>{{_previousDataValues.prodbrand}} </td>
-                                     <td>{{_previousDataValues.soldqty}} </td>
-                                      <td>{{_previousDataValues.amount}} </td>
-                                     <td>{{_previousDataValues.clientname}} </td>
-                                     <td>{{_previousDataValues.clientphone}} </td>
-                                     <td style="width:25%;" align="center">
-                                      <a href="" class="btn btn-primary pl-2 w-25"><i class="fa fa-pencil"></i> Edit</a>
-                                      <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Del</a>
-                                    </td>
-                                    </tr>
+                               
+                                    {{#each getusers}}
+                                <tr> 
+                                    <td> {{_previousDataValues.username}}</td>
+                                    <td>{{_previousDataValues.phone}} </td>
+                                     <td style="width:25%;" align="center"> 
+                                         <form action="/deleteusers" method="GET"> 
+                                         <a href="/editusers/{{_previousDataValues.id}}" class="btn btn-primary pl-2 w-25"><i class="fa fa-pencil"></i> Edit</a>
+                                            <input type="hidden" name="id" value="{{_previousDataValues.id}}">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')"> Del </button>
+                                        </form>
+                                    <td> 
+                                 </tr>
                                 {{/each}}
-                                </tbody>
-                            </table>
+                              </tbody>
+                          </table>
                      <p> <br> 
                        <!-- end form -->
                  </div>      
             </div>
-           
           <!-- end: second  content -->
+   
 
     
           <!-- start: right menu -->

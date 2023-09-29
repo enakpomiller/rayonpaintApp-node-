@@ -12,7 +12,10 @@
 	<meta name="keyword" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Miminium</title>
- 
+  
+ <!-- datatable bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+		<!-- enddatatable bootstrap -->
     <!-- start: Css -->
     <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
 
@@ -60,7 +63,7 @@
               </ul>
 
               <ul class="nav navbar-nav navbar-right user-nav">
-                <li class="user-name"><span>Akihiko Avaron</span></li>
+                <li class="user-name"><span> {{user}}  </span></li>
                   <li class="dropdown avatar-dropdown">
                    <img src="asset/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                    <ul class="dropdown-menu user-dropdown">
@@ -202,16 +205,17 @@
                 </div>
 
                 <div id="content" class="panel" style="width:95%;margin:auto;">
-                  <div class="panel-body" style="position:relative;right:100px;">
+                  <div class="panel-body" style="position:relative;right:100px;top:30px;">
                       <div class="col-md-12 col-sm-12">
                      <!-- start form -->
-                            <table class="table table-striped" style="margin-top:50px;">
+                            <table class="table table-striped" id="table" style="margin-top:50px;">
                                 <thead>
                                     <tr>
                                     <th scope="col">S/n</th>
                                     <th scope="col">Product Nmae</th>
                                     <th scope="col">Product Price</th>
                                     <th scope="col"> Product Quantity</th>
+                                      <th scope="col" class="text-center"> Action  </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -220,12 +224,10 @@
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
+                                    <td align="center">
+                                      <a href="" class="btn btn-primary">Edit</a>
+                                      <a href="" class="btn btn-danger">Delete</a>
+                                    </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -376,7 +378,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4>Akihiko Avaron</h4>
+                    <a href="#" class="close-chat">X</a><h4> {{user}} </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">
@@ -1140,6 +1142,17 @@
 
       })(jQuery);
      </script>
+
+     <!-- datatable script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+<!-- end datatable script -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+</script>
+
   <!-- end: Javascript -->
   </body>
 </html>

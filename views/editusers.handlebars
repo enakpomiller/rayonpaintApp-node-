@@ -11,10 +11,6 @@
 	<meta name="author" content="Isna Nur Azis">
 	<meta name="keyword" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-   
- <!-- datatable bootstrap -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
-		<!-- enddatatable bootstrap -->
     <title>Miminium</title>
  
     <!-- start: Css -->
@@ -70,6 +66,7 @@
                    <ul class="dropdown-menu user-dropdown">
                      <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
                      <li><a href="#"><span class="fa fa-calendar"></span> My Calendar</a></li>
+                      <li><a href="/logout" onclick="return confirm(' are you sure?')"><span class="fa fa-calendar"></span> Logout </a></li>
                      <li role="separator" class="divider"></li>
                      <li class="more">
                       <ul>
@@ -110,7 +107,8 @@
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                       </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="/addproduct"> Add Products  </a></li>
+                        <li><a href="/addproduct"> {{title}} </a></li>
+                        <li><a href="/viewprod_details"> View Product Details </a></li>
                          <li><a href="boxed.html">  Product Samples</a></li>
                       </ul>
                     </li>
@@ -120,22 +118,28 @@
                         <span class="fa-angle-right fa right-arrow text-right"></span>
                       </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="addstaff"> Add Staff</a></li>
-                        <li><a href="/viewstaff"> View Staf Records </a></li>
+                        <li><a href="chartjs.html"> Add Staff</a></li>
+                        <li><a href="morris.html"> View Staf Records </a></li>
+                        <li><a href="flot.html">View Monthly/Yearly Payment of Staff</a></li>
                       </ul>
                     </li>
                     <li class="ripple"><a class="tree-toggle nav-header">
                     <span class="fa fa-pencil-square"></span> Manage Sales   <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="/viewclient"> View Client Details</a></li>
+                        <li><a href="viewsales"> View Sales Details</a></li>
                       </ul>
                     </li>
-                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-check-square-o"></span> Settings  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-check-square-o"></span> Manage Client   <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                       <ul class="nav nav-list tree">
-                        <li><a href="formelement.html">Form Element</a></li>
-                        <li><a href="#">Wizard</a></li>
-                        <li><a href="#">File Upload</a></li>
-                        <li><a href="#">Text Editor</a></li>
+                        <li><a href="/viewclient"> View Clients  </a></li>
+                        <li><a href="/addclient"> Add Client </a></li>
+                      </ul>
+                    </li>
+                    <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-table"></span> Settings  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                      <ul class="nav nav-list tree">
+                        <li><a href="datatables.html"> Add Users </a></li>
+                        <li><a href="handsontable.html"> Change Password  </a></li>
+                        <li><a href="tablestatic.html">Static</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -149,15 +153,16 @@
                 <div class="panel">
                   <div class="panel-body">
                       <div class="col-md-6 col-sm-12">
-                        <h3 class="animated fadeInLeft"> Sales Details   </h3>
-                        <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> Batavia,Indonesia</p>
-                            <ul class="nav navbar-nav">
-                                <li><a href="" >Impedit</a></li>
-                                <li><a href="" class="active">Virtute</a></li>
-                                <li><a href="">Euismod</a></li>
-                                <li><a href="">Explicar</a></li>
-                                <li><a href="">Rebum</a></li>
-                            </ul>
+                        <h3 class="animated fadeInLeft"> {{title}} </h3>
+                        <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span>  {{user}} is online </p>
+
+                        <ul class="nav navbar-nav">
+                            <li><a href="" >Impedit</a></li>
+                            <li><a href="" class="active">Virtute</a></li>
+                            <li><a href="">Euismod</a></li>
+                            <li><a href="">Explicar</a></li>
+                            <li><a href="">Rebum</a></li>
+                        </ul>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="col-md-6 col-sm-6 text-right" style="padding-left:10px;">
@@ -190,46 +195,46 @@
                   </div>                    
                 </div>
 
-                <div id="content" class="panel" style="width:95%;margin:auto;">
-                  <div class="panel-body" style="position:relative;right:100px;top:30px;">
-                      <div class="col-md-12 col-sm-12">
-                     <!-- start form -->
-                            <table class="table table-striped" id="table" style="margin-top:50px;">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">Product Nmae</th>
-                                    <th scope="col">Product Price</th>
-                                    <th scope="col"> Product Brand</th>
-                                    <th scope="col"> Sold Qty</th>
-                                    <th scope="col"> Amount</th>
-                                    <th scope="col"> Client Name</th>
-                                    <th scope="col"> Client Phone </th>
-                                    <th scope="col" class="text-center"> Action </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each allsales}}
-                                    <tr>
-                                    <td> {{_previousDataValues.prodname}}  </td>
-                                    <td>{{_previousDataValues.prodprice}} </td>
-                                    <td>{{_previousDataValues.prodbrand}} </td>
-                                     <td>{{_previousDataValues.soldqty}} </td>
-                                      <td>{{_previousDataValues.amount}} </td>
-                                     <td>{{_previousDataValues.clientname}} </td>
-                                     <td>{{_previousDataValues.clientphone}} </td>
-                                     <td style="width:25%;" align="center">
-                                      <a href="" class="btn btn-primary pl-2 w-25"><i class="fa fa-pencil"></i> Edit</a>
-                                      <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Del</a>
-                                    </td>
-                                    </tr>
-                                {{/each}}
-                                </tbody>
-                            </table>
-                     <p> <br> 
-                       <!-- end form -->
-                 </div>      
-            </div>
-           
+                                  
+                   
+                                 
+        
+       
+            <form action="/addusers" method="POST"> 
+                 <div id="content bg-info" class="panel" style="width:40%;margin:auto;height:450px;">
+                         {{#if msg_success}}
+                            <div class="text-success text-center">{{msg_success}} </div>
+                          {{/if}} 
+                  <div class="panel-body">
+                       {{#if msg_err}}
+                           <div class="text-danger text-center">{{msg_err}} </div>
+                      {{/if}}
+                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                      <input type="text" name="username" class="form-text" required>
+                      <span class="bar"></span>
+                      <label> Username </label>
+                  </div>
+                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                      <input type="text" name="phone" class="form-text" required>
+                      <span class="bar"></span>
+                      <label> Phone </label>
+                  </div>
+                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                    <input type="password" name="password" class="form-text" required>
+                    <span class="bar"></span>
+                    <label>Password</label>
+                  </div>
+                  <label class="pull-left">
+                  <input type="checkbox" class="icheck pull-left" name="checkbox1"/> &nbsp Agree the terms and policy
+                  </label>
+                  <input type="submit" class="btn col-md-12 btn-primary border-0" value="Add User" style="border-radius:5px;">
+              </div>
+          </form>     
+            <!-- end form -->
+      </div>
+
+                            
+                </div>
           <!-- end: second  content -->
 
     
@@ -372,7 +377,7 @@
                 <!-- Chatbox -->
                 <div class="col-md-12 chatbox">
                   <div class="col-md-12">
-                    <a href="#" class="close-chat">X</a><h4> {{user}} </h4>
+                    <a href="#" class="close-chat">X</a><h4> {{user}}  </h4>
                   </div>
                   <div class="chat-area">
                     <div class="chat-area-content">
@@ -771,20 +776,9 @@
                         <li><a href="modal.html">Modals</a></li>
                       </ul>
                     </li>
-                    <li class="ripple">
-                      <a class="tree-toggle nav-header">
-                       <span class="fa fa-check-square-o"></span>Forms
-                       <span class="fa-angle-right fa right-arrow text-right"></span>
-                      </a>
-                      <ul class="nav nav-list tree">
-                        <li><a href="formelement.html">Form Element</a></li>
-                        <li><a href="#">Wizard</a></li>
-                        <li><a href="#">File Upload</a></li>
-                        <li><a href="#">Text Editor</a></li>
-                      </ul>
-                    </li>
-     
+
          
+        
                     <li class="ripple">
                       <a class="tree-toggle nav-header">
                         <span class="fa fa-envelope-o"></span>Mail
@@ -804,12 +798,6 @@
                       <ul class="nav nav-list tree">
                         <li><a href="forgotpass.html">Forgot Password</a></li>
                         <li><a href="login.html">SignIn</a></li>
-                        <li><a href="reg.html">SignUp</a></li>
-                        <li><a href="article-v1.html">Article v1</a></li>
-                        <li><a href="search-v1.html">Search Result v1</a></li>
-                        <li><a href="productgrid.html">Product Grid</a></li>
-                        <li><a href="profile-v1.html">Profile v1</a></li>
-                        <li><a href="invoice-v1.html">Invoice v1</a></li>
                       </ul>
                     </li>
                      <li class="ripple"><a class="tree-toggle nav-header"><span class="fa "></span> MultiLevel  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
@@ -834,17 +822,18 @@
             </div>
         </div>       
       </div>
-    
+
       <button id="mimin-mobile-menu-opener" class="animated rubberBand btn btn-circle btn-danger">
         <span class="fa fa-bars"></span>
       </button>
+    
+       <!-- end: Mobile -->
 
-        <div class="panel" style="position:relative;top:250px;">
+               <div class="panel" style="position:relative;top:50px;">
                 <div class="panel-body">
                     <p class="text-center"> Allright reserved@rayonpaint </p>
                 </div>
           </div>
-       <!-- end: Mobile -->
 
     <!-- start: Javascript -->
     <script src="asset/js/jquery.min.js"></script>
@@ -1139,16 +1128,5 @@
       })(jQuery);
      </script>
   <!-- end: Javascript -->
-
-  <!-- datatable script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
-<!-- end datatable script -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $('#table').DataTable();
-    });
-</script>
-
   </body>
 </html>
