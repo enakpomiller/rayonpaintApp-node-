@@ -227,8 +227,11 @@ tbl_sale.sync();
     // processing of forms 
        app.post('/addusers',async (req,res) => { 
              try{
-                  const {username,phone} = req.body;
+                  const {username,phone,check} = req.body;
                   const password = await bcrypt.hash(req.body.password,20);
+                  if(check==""){
+                    console.log(" check is empty");
+                  }
                   const user_exist = await tbl_users.findOne({where:{username:username}});
                   if(user_exist){
                       res.render("addusers",{msg_err:" SORRY USER ALREADY EXIST"});
@@ -393,10 +396,61 @@ app.post('/addsales',async(req,res) =>{
   })
 
 
-app.get('/editusers/:id',(req,res) =>{
-      const userid = req.params.id
-      const title = " Edit Users "
-      res.render("editusers",{title});
+  // edit user record 
+app.get('/editusers',async (req,res) =>{
+  try{
+    if(req.session.username){
+        const title = " Edit Users ";
+        const user_exist = await tbl_users.findOne({
+        where:{
+          id:req.query.id
+        },
+        raw:true,// convert to json data
+        });
+        if(user_exist){
+          const user = req.session.username;
+          res.render("editusers",{user_exist,user,title});
+        }else{
+          console.log(" user does not exist");
+        }
+
+    }else{
+     return res.render('user_login');
+    }
+
+  }catch(err){
+    console.log(err);
+  }
+  
+})
+
+// update user record 
+app.post('/editusers',async (req,res) =>{
+     try{
+      if(req.session.username){
+        const user = req.session.username;
+        const {username,phone} = req.body;
+        const updateusers =  await tbl_users.update( 
+          {phone:phone
+          },{where:{
+            username:username
+          }
+        }
+        );
+        if(updateusers){
+           const title = " Update User ";
+          res.render('editusers',{msg_update:" User Record Updated Successfully",user,title});
+        }else{
+         console.log(' cannot update');
+        }
+      }else{
+       return render ('user_login');
+      }
+
+
+    }catch(err){
+     console.log(err);
+    }
 
 })
 

@@ -132,7 +132,7 @@
                     <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-check-square-o"></span> Manage Client   <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                       <ul class="nav nav-list tree">
                         <li><a href="/viewclient"> View Clients  </a></li>
-                        <li><a href="/addclient"> Add Client </a></li>
+                        <li><a href="/addclient"> Add Client </a></li> 
                       </ul>
                     </li>
                     <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-table"></span> Settings  <span class="fa-angle-right fa right-arrow text-right"></span> </a>
@@ -157,7 +157,7 @@
                         <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span>  {{user}} is online </p>
 
                         <ul class="nav navbar-nav">
-                            <li><a href="" >Impedit</a></li>
+                            <li><a href="/viewusers" > View Users </a></li>
                             <li><a href="" class="active">Virtute</a></li>
                             <li><a href="">Euismod</a></li>
                             <li><a href="">Explicar</a></li>
@@ -193,44 +193,77 @@
                         </div>                   
                     </div>
                   </div>                    
-                </div>
-
-                                  
-                   
-                                 
+                </div>         
         
+  <style>
+    .sub_header_agent{
+      background:url(./asset/img/avt1.png);
+      height: 200px;
+      width:30%;
+      margin: auto;
+      position: relative;
+      top: 30px;
+      background-size: cover;
+      background-position: center;
+      /* opacity: 0.5;; */
+      /* filter: brightness(70%); */
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+    }
+  </style>
        
-            <form action="/addusers" method="POST"> 
-                 <div id="content bg-info" class="panel" style="width:40%;margin:auto;height:450px;">
-                         {{#if msg_success}}
-                            <div class="text-success text-center">{{msg_success}} </div>
-                          {{/if}} 
-                  <div class="panel-body">
+            <form action="/editusers" method="POST"> 
+                  <div id="content bg-info" class="panel" style="width:40%;margin:auto;height:450px;">
+         
+                   
+                    <div class="panel-body">
                        {{#if msg_err}}
                            <div class="text-danger text-center">{{msg_err}} </div>
                       {{/if}}
+
+                       {{#if user_exist}}
                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                      <input type="text" name="username" class="form-text" required>
-                      <span class="bar"></span>
-                      <label> Username </label>
+                         <input type="text" name="username" required  value="{{user_exist.username}}"  class="form-text">
+                         <span class="bar"></span>
+                        <label> Username </label>
                   </div>
+                
                   <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                      <input type="text" name="phone" class="form-text" required>
+                      <input type="text" name="phone" value="{{user_exist.phone}}" class="form-text" required>
                       <span class="bar"></span>
                       <label> Phone </label>
                   </div>
                   <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                    <input type="password" name="password" class="form-text" required>
+                    <input type="password" name="password" value="{{user_exist.password}}" class="form-text" required>
                     <span class="bar"></span>
                     <label>Password</label>
                   </div>
+                  
                   <label class="pull-left">
                   <input type="checkbox" class="icheck pull-left" name="checkbox1"/> &nbsp Agree the terms and policy
                   </label>
-                  <input type="submit" class="btn col-md-12 btn-primary border-0" value="Add User" style="border-radius:5px;">
+                  <input type="submit" class="btn col-md-12 btn-primary border-0" value="Save Changes" style="border-radius:5px;">
+          
+                {{else}}
+                
+                  <div class="sub_header_agent"></div>
+                    <div class="panel-body"> 
+                           {{#if msg_update}}
+                            <div class="text-primary text-center mt-4">{{msg_update}} </div>
+                          {{/if}} 
+                          <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                          <a href="/viewusers" class="btn btn-primary" style="width:100%;"> Reload </a>
+                        </div>
               </div>
+               {{/if}}
           </form>     
             <!-- end form -->
+
+                  
       </div>
 
                             
